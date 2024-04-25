@@ -1,0 +1,22 @@
+{
+  "name": "blueprint-js",
+  "version": "0.0.1",
+  "description": "Experimental ui library",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/p1xlized/blueprint-js.git"
+  },
+  "keywords": [
+    "ui"
+  ],
+  "author": "p1xlized",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/p1xlized/blueprint-js/issues"
+  },
+  "homepage": "https://github.com/p1xlized/blueprint-js#readme"
+}
