@@ -1,41 +1,43 @@
-// obesrvers
-function Subject(){
-    this.observer = [];
+function update(builder) {
+  builder(body(
+      text("Hello world!"), 
+      text(`Value: ${value.get()}`), 
+      button({ 
+          content: "Click me!", 
+          action: () => {
+              value.set(value.get() + 1); 
+          }
+      })
+  ), root);
 }
 
-Subject.prototype = {
-    subscribe: function(observer){
-        this.observer.push(observer);
-    },
-    unsubscribe: function(observer){
-        this.observer.splice(this.observer.indexOf(observer), 1);
-    },
-    trigger: function(){
-        this.observer.forEach(function(observer){
-            observer.update();
-        });
-    }
-}
-// builder export function inserts the elements to the root html, for now it takes body only later could make header, footer etc.
-// ? ui functions
-export function builder(body, root) {
-  // Remove existing content from the root
+value.subscribe(update);
+
+update();
+
+
+// Builder function to manipulate the DOM
+export function builder(content, root) {
   while (root.firstChild) {
-    root.removeChild(root.firstChild);
-    console.log("Removing content")
+      root.removeChild(root.firstChild);
+      console.log("Removing content");
   }
   
-  // Append the new body content to the root
-  root.appendChild(body);
-  console.log("Appending content")
+  root.appendChild(content);
+  console.log("Appending content");
 }
 
-export function text(content) {
-  const p = document.createElement("p");
-  p.innerText = content;
-  return p;
-}
-// is a div that nest toghether multiple elements
+// Create a Subject for tracking variable changes
+const subject = new Subject();
+
+export const main = {
+  update: function() {
+      const newContent = document.createElement('div');
+      newContent.innerText = trackedVariable;
+      builder(newContent, document.body);
+  }
+};
+
 // todo: should take multiple objects append toghether( append child )
 export function body() {
   let content = document.createElement("div");
@@ -106,4 +108,3 @@ export function mutable(initialValue) {
     }
   };
 }
-
